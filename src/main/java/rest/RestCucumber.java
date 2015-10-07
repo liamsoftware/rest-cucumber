@@ -74,10 +74,10 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
    private void createRestClient(Class<?> clazz) {
       Annotation annotation = clazz.getAnnotation(RestCucumberOptions.class);
       if (annotation instanceof RestCucumberOptions) {
-         RestCucumberOptions jcOptions = (RestCucumberOptions) annotation;
-         String clientName = jcOptions.restClient();
-         String pathToPropertiesFile = jcOptions.path();
-         uploadResultEnabled = jcOptions.uploadResultEnabled();
+         RestCucumberOptions restCucumberOptions = (RestCucumberOptions) annotation;
+         String clientName = restCucumberOptions.restClient();
+         String pathToPropertiesFile = restCucumberOptions.path();
+         uploadResultEnabled = restCucumberOptions.uploadResultEnabled();
 
          try {
             restClientCreatedAtRuntime = Class.forName(clientName);

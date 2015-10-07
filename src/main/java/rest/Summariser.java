@@ -4,10 +4,12 @@ import java.util.*;
 import cucumber.runtime.model.CucumberFeature;
 
 public class Summariser {
+   private static final String SCENARIO = "Scenario:";
+   private static final String SCENARIO_INTRO = "Scenario: This is an example";
    private Map<String, String> results;
    private Map<String, CucumberFeature> features;
    private RestRuntime runtime;
-   private List<RestScenarioResult> jiraScenarioList;
+   private List<RestScenarioResult> restScenarioList;
    private List<CucumberFeatureResultContainer> containers;
 
    public Summariser(Map<String, String> results, Map<String, CucumberFeature> features,
@@ -20,7 +22,7 @@ public class Summariser {
    }
 
    public List<RestScenarioResult> getScenarioResults() {
-      return jiraScenarioList;
+      return restScenarioList;
    }
 
    public List<CucumberFeatureResultContainer> getContainers() {
@@ -53,20 +55,20 @@ public class Summariser {
 
    private void createRestResultList(List<String> results) {
       Map<String, CucumberFeature> scenarios = createMapOfScenarios();
-      jiraScenarioList = new ArrayList<RestScenarioResult>();
+      restScenarioList = new ArrayList<RestScenarioResult>();
 
       for (String scenario : scenarios.keySet()) {
-         RestScenarioResult jiraScenarioResult =
+         RestScenarioResult restScenarioResult =
             createRestResultForScenario(scenario, results);
-         jiraScenarioList.add(jiraScenarioResult);
+         restScenarioList.add(restScenarioResult);
          CucumberFeature cucumberFeature = scenarios.get(scenario);
 
          String issueKey = getIssueKeyFromCucumberFeature(cucumberFeature);
          int index = checkIfContainerAlreadyExistsForIssueKey(issueKey);
          if (index == -1) {
-            createNewContainer(cucumberFeature, jiraScenarioResult);
+            createNewContainer(cucumberFeature, restScenarioResult);
          } else {
-            addToExistingContainer(index, jiraScenarioResult);
+            addToExistingContainer(index, restScenarioResult);
          }
       }
    }
@@ -94,17 +96,17 @@ public class Summariser {
    }
 
    private void createNewContainer(CucumberFeature cucumberFeature,
-      RestScenarioResult jiraScenarioResult) {
+      RestScenarioResult restScenarioResult) {
       CucumberFeatureResultContainer aNewContainer =
          new CucumberFeatureResultContainer(cucumberFeature);
-      aNewContainer.addResult(jiraScenarioResult);
+      aNewContainer.addResult(restScenarioResult);
       containers.add(aNewContainer);
       runtime.addContainer(aNewContainer);
    }
 
-   private void addToExistingContainer(int index, RestScenarioResult jiraScenarioResult) {
+   private void addToExistingContainer(int index, RestScenarioResult restScenarioResult) {
       CucumberFeatureResultContainer aExistingContainer = containers.get(index);
-      aExistingContainer.addResult(jiraScenarioResult);
+      aExistingContainer.addResult(restScenarioResult);
    }
 
    private RestScenarioResult createRestResultForScenario(String scenario,
@@ -125,18 +127,18 @@ public class Summariser {
    }
 
    private String getStepString(String s) {
-      if (!s.contains("Scenario:")) {
-         s = "Scenario: This is an example" + s;
+      if (!s.contains(SCENARIO)) {
+         s = SCENARIO_INTRO + s;
       }
-      String[] array = s.split("Scenario:");
+      String[] array = s.split(SCENARIO);
       return array[0];
    }
 
    private String getScenarioString(String s) {
-      if (!s.contains("Scenario:")) {
-         s = "Scenario: This is an example" + s;
+      if (!s.contains(SCENARIO)) {
+         s = SCENARIO_INTRO + s;
       }
-      String[] array = s.split("Scenario:");
-      return "Scenario: " + array[1];
+      String[] array = s.split(SCENARIO);
+      return SCENARIO + " " + array[1];
    }
 }

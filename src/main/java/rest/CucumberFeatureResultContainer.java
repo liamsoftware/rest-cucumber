@@ -16,10 +16,10 @@ public class CucumberFeatureResultContainer {
 
    public Map<String, String> getStepResults() {
       Map<String, String> stepResults = new HashMap<String, String>();
-      for (RestScenarioResult jsr : results) {
-         Map<String, String> sResult = jsr.getStepsWithResults();
-         for (String key : sResult.keySet()) {
-            stepResults.put(key, sResult.get(key));
+      for (RestScenarioResult aRestScenarioResult : results) {
+         Map<String, String> stepResult = aRestScenarioResult.getStepsWithResults();
+         for (String step : stepResult.keySet()) {
+            stepResults.put(step, stepResult.get(step));
          }
       }
       stepResults = sanitiseResults(stepResults);
@@ -53,8 +53,8 @@ public class CucumberFeatureResultContainer {
       return issueKey;
    }
 
-   public boolean addResult(RestScenarioResult jiraScenarioResult) {
-      return results.add(jiraScenarioResult);
+   public boolean addResult(RestScenarioResult restScenarioResult) {
+      return results.add(restScenarioResult);
    }
 
    public String toString() {
@@ -68,8 +68,8 @@ public class CucumberFeatureResultContainer {
 
       String result = "Passed";
       int passCount = 0;
-      for (RestScenarioResult jsr : results) {
-         if (!"pass".equals(jsr.getScenarioResult())) {
+      for (RestScenarioResult aRestScenarioResult : results) {
+         if (!"pass".equals(aRestScenarioResult.getScenarioResult())) {
             result = "Failed";
          } else {
             passCount++;
@@ -81,8 +81,8 @@ public class CucumberFeatureResultContainer {
 
    public String getFeatureResult() {
       String result = "Passed";
-      for (RestScenarioResult jsr : results) {
-         if (!"pass".equals(jsr.getScenarioResult())) {
+      for (RestScenarioResult aRestScenarioResult : results) {
+         if (!"pass".equals(aRestScenarioResult.getScenarioResult())) {
             result = "Failed";
          }
       }

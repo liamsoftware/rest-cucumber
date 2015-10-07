@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 public class RestScenarioResult {
+   private static final String PASSED_STEP_RESULT = "[passed]";
+   private static final String PASS_SCENARIO_RESULT = "pass";
+   private static final String FAIL_SCENARIO_RESULT = "fail";
    private Map<String, String> stepsWithResults;
    private List<String> passedSteps;
    private List<String> failedSteps;
@@ -22,15 +25,16 @@ public class RestScenarioResult {
    private void calculateResult() {
       for (String step : stepsWithResults.keySet()) {
          String stepResult = stepsWithResults.get(step);
-         if ("[passed]".equalsIgnoreCase(stepResult)) {
+         if (PASSED_STEP_RESULT.equalsIgnoreCase(stepResult)) {
             passedSteps.add(step);
          } else {
             failedSteps.add(step);
          }
       }
-      scenarioResult = failedSteps.isEmpty() ? "pass" : "fail";
+      scenarioResult =
+         failedSteps.isEmpty() ? PASS_SCENARIO_RESULT : FAIL_SCENARIO_RESULT;
       if (failedSteps.isEmpty() && passedSteps.isEmpty()) {
-         scenarioResult = "fail";
+         scenarioResult = FAIL_SCENARIO_RESULT;
       }
    }
 

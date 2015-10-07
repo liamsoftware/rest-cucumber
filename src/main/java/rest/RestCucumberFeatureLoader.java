@@ -9,7 +9,7 @@ import cucumber.runtime.model.CucumberFeature;
 import cucumber.runtime.model.PathWithLines;
 
 public class RestCucumberFeatureLoader {
-   private static final String JIRA = "jira";
+   public static final String REST_CLIENT_KEY = "rest client";
 
    private RestCucumberFeatureLoader() {
    }
@@ -17,11 +17,11 @@ public class RestCucumberFeatureLoader {
    public static List<CucumberFeature> load(ResourceLoader resourceLoader,
       List<String> featurePaths, List<Object> filters, PrintStream out) {
       if (resourceLoader instanceof RestMultiLoader) {
-         RestMultiLoader jiraResourceLoader = (RestMultiLoader) resourceLoader;
-         if (jiraResourceLoader.hasRestClientSet()) {
+         RestMultiLoader restClientResourceLoader = (RestMultiLoader) resourceLoader;
+         if (restClientResourceLoader.hasRestClientSet()) {
             List<String> newFeaturePaths = new ArrayList<String>();
             for (int i = 0; i < featurePaths.size(); i++) {
-               newFeaturePaths.add(JIRA);
+               newFeaturePaths.add(REST_CLIENT_KEY);
             }
             featurePaths = newFeaturePaths;
          }
@@ -47,8 +47,8 @@ public class RestCucumberFeatureLoader {
       final List<CucumberFeature> cucumberFeatures = new ArrayList<CucumberFeature>();
       final FeatureBuilder builder = new FeatureBuilder(cucumberFeatures);
       for (String featurePath : featurePaths) {
-         if (featurePath.equalsIgnoreCase(JIRA)) {
-            loadFromJira(resourceLoader, builder, filters);
+         if (featurePath.equalsIgnoreCase(REST_CLIENT_KEY)) {
+            loadFromRestClient(resourceLoader, builder, filters);
          } else {
             loadFromFeaturePath(builder, resourceLoader, featurePath, filters, false);
          }
@@ -57,9 +57,9 @@ public class RestCucumberFeatureLoader {
       return cucumberFeatures;
    }
 
-   private static void loadFromJira(ResourceLoader resourceLoader,
+   private static void loadFromRestClient(ResourceLoader resourceLoader,
       FeatureBuilder builder, List<Object> filters) {
-      Iterable<Resource> resources = resourceLoader.resources("", JIRA);
+      Iterable<Resource> resources = resourceLoader.resources("", REST_CLIENT_KEY);
       if (!resources.iterator().hasNext()) {
          throw new IllegalArgumentException(
             "No resource found, please ensure you have set a rest client to use with JiraCucumber.");

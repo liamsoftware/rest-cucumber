@@ -88,7 +88,7 @@ public class RestJUnitReporter extends JUnitReporter {
       return executionUnitRunner;
    }
 
-   public List<RestScenarioResult> getJiraScenarioResults() {
+   public List<RestScenarioResult> getRestScenarioResults() {
       return summariser.getScenarioResults();
    }
 

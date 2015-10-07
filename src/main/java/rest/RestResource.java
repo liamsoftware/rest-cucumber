@@ -17,7 +17,6 @@ public class RestResource implements Resource {
    public RestResource(String issueKey, String baseUrl) {
       Validate.notEmpty(issueKey);
       Validate.notEmpty(baseUrl);
-
       this.issueKey = issueKey;
       path = baseUrl;
       creationTime = System.currentTimeMillis();
@@ -27,7 +26,6 @@ public class RestResource implements Resource {
       Validate.notEmpty(issueKey);
       Validate.notEmpty(baseUrl);
       Validate.notNull(restClient);
-
       this.issueKey = issueKey;
       path = baseUrl;
       client = restClient;
@@ -45,7 +43,7 @@ public class RestResource implements Resource {
    public InputStream getInputStream() throws IOException {
       String result = client.generateFeatureString(issueKey);
       if (result.isEmpty()) {
-         throw new IOException("The feature string recieved from ReST Client is empty.");
+         throw new IOException("The feature string recieved from Rest Client is empty.");
       }
       return new ByteArrayInputStream(result.getBytes(StandardCharsets.UTF_8));
    }

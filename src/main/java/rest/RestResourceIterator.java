@@ -9,9 +9,9 @@ public class RestResourceIterator implements Iterator<Resource> {
    private List<RestResource> issues;
    private Iterator<RestResource> i;
 
-   public RestResourceIterator(List<RestResource> jiraIssues) {
-      this.issues = new ArrayList<RestResource>(jiraIssues);
-      i = issues.iterator();
+   public RestResourceIterator(List<RestResource> issues) {
+      this.issues = new ArrayList<RestResource>(issues);
+      i = this.issues.iterator();
    }
 
    public boolean hasNext() {

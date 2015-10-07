@@ -6,7 +6,6 @@ import cucumber.runtime.io.Resource;
 import cucumber.runtime.io.ResourceLoader;
 
 public class RestMultiLoader implements ResourceLoader {
-   private static final String JIRA = "jira";
    private MultiLoader loader;
    private CucumberRestClient restClient;
 
@@ -24,7 +23,7 @@ public class RestMultiLoader implements ResourceLoader {
    }
 
    public Iterable<Resource> resources(String path, String suffix) {
-      if (JIRA.equalsIgnoreCase(suffix)) {
+      if (RestCucumberFeatureLoader.REST_CLIENT_KEY.equalsIgnoreCase(suffix)) {
          return new RestResourceLoader(restClient);
       }
       return loader.resources(path, suffix);
