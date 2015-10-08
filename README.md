@@ -37,7 +37,7 @@ Clone the repo or add the release version as a Maven dependency to your project:
 <dependency>
     <groupId>com.github.liamhayes1</groupId>
     <artifactId>rest-cucumber</artifactId>
-    <version>1.22</version>
+    <version>1.0</version>
 </dependency>
 ```
 
