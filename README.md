@@ -9,8 +9,8 @@ RestCucumber allows for execution of Cucumber BDD tests on feature files that ar
 
 * Add a properties file to your project which contains the details to create your Rest Client
 * Create a Rest Client builder with a method signature public static CucumberRestClient buildClient(String pathToPropertiesFile)
-* Create a Cucumber runner class including the RestCucumberOptions as outlined in the below example
-* See the [sample package](https://github.com/LiamHayes1/rest-cucumber/tree/master/src/main/java/example) including [RunCukeTest](https://github.com/LiamHayes1/rest-cucumber/blob/master/src/main/java/sample/RunCukeTest.java)
+* Create a class to run your Cucumber test which includes the RestCucumberOptions as outlined in the below example
+* See the [sample package](https://github.com/LiamHayes1/rest-cucumber/tree/master/src/main/java/example) including [RunCukeTest](https://github.com/LiamHayes1/rest-cucumber/blob/master/src/main/java/example/RunCukeTest.java)
 
 ```
 import jira.RestCucumber;
