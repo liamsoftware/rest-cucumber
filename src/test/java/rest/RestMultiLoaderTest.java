@@ -27,7 +27,8 @@ public class RestMultiLoaderTest {
    public void whenJiraResourceRequested_thenJiraResourceLoaderReturned() {
       jiraMultiLoader = new RestMultiLoader(classLoader);
       jiraMultiLoader.setRestClient(restClient);
-      Iterable<Resource> resource = jiraMultiLoader.resources("", "jira");
+      Iterable<Resource> resource =
+         jiraMultiLoader.resources("", RestCucumberFeatureLoader.REST_CLIENT_KEY);
       assertTrue(resource.iterator().hasNext());
    }
 

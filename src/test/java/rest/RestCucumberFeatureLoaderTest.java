@@ -20,11 +20,12 @@ public class RestCucumberFeatureLoaderTest {
       givenValidIssueSet_whenLoadingFromJira_thenListOfCucumberFeaturesIsCreated()
          throws IOException {
       List<String> featurePaths = new ArrayList<String>();
-      featurePaths.add("jira");
+      featurePaths.add(RestCucumberFeatureLoader.REST_CLIENT_KEY);
       RestResourceLoader resourceLoader = mock(RestResourceLoader.class);
 
       RestMultiLoader multiLoader = mock(RestMultiLoader.class);
-      given(multiLoader.resources("", "jira")).willReturn(resourceLoader);
+      given(multiLoader.resources("", RestCucumberFeatureLoader.REST_CLIENT_KEY))
+         .willReturn(resourceLoader);
       RestResource jr = mock(RestResource.class);
       RestResourceIterator jit = mock(RestResourceIterator.class);
       given(resourceLoader.iterator()).willReturn(jit);
