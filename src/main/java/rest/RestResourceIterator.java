@@ -6,23 +6,23 @@ import java.util.List;
 import cucumber.runtime.io.Resource;
 
 public class RestResourceIterator implements Iterator<Resource> {
-   private List<RestResource> issues;
-   private Iterator<RestResource> i;
+   private List<RestResource> testCases;
+   private Iterator<RestResource> aTestCaseIt;
 
-   public RestResourceIterator(List<RestResource> issues) {
-      this.issues = new ArrayList<RestResource>(issues);
-      i = this.issues.iterator();
+   public RestResourceIterator(List<RestResource> testCases) {
+      this.testCases = new ArrayList<RestResource>(testCases);
+      aTestCaseIt = this.testCases.iterator();
    }
 
    public boolean hasNext() {
-      return i.hasNext();
+      return aTestCaseIt.hasNext();
    }
 
    public Resource next() {
-      return (Resource) i.next();
+      return (Resource) aTestCaseIt.next();
    }
 
    public void remove() {
-      i.remove();
+      aTestCaseIt.remove();
    }
 }

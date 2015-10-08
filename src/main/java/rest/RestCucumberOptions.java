@@ -10,7 +10,7 @@ public @interface RestCucumberOptions {
     */
    String restClient() default "";
 
-   String path() default "";
+   String pathToProperties() default "";
 
-   boolean uploadResultEnabled() default true;
+   boolean uploadTestResults() default true;
 }

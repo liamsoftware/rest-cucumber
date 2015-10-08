@@ -10,30 +10,30 @@ import cucumber.runtime.io.Resource;
 
 public class RestResource implements Resource {
    private CucumberRestClient client;
-   private String issueKey = null;
+   private String testId = null;
    private String path = null;
    private long creationTime;
 
-   public RestResource(String issueKey, String baseUrl) {
-      Validate.notEmpty(issueKey);
+   public RestResource(String testId, String baseUrl) {
+      Validate.notEmpty(testId);
       Validate.notEmpty(baseUrl);
-      this.issueKey = issueKey;
+      this.testId = testId;
       path = baseUrl;
       creationTime = System.currentTimeMillis();
    }
 
-   public RestResource(String issueKey, String baseUrl, CucumberRestClient restClient) {
-      Validate.notEmpty(issueKey);
+   public RestResource(String testId, String baseUrl, CucumberRestClient restClient) {
+      Validate.notEmpty(testId);
       Validate.notEmpty(baseUrl);
       Validate.notNull(restClient);
-      this.issueKey = issueKey;
+      this.testId = testId;
       path = baseUrl;
       client = restClient;
       creationTime = System.currentTimeMillis();
    }
 
-   public String getIssueKey() {
-      return issueKey;
+   public String getTestId() {
+      return testId;
    }
 
    public String getAbsolutePath() {
@@ -41,7 +41,7 @@ public class RestResource implements Resource {
    }
 
    public InputStream getInputStream() throws IOException {
-      String result = client.generateFeatureString(issueKey);
+      String result = client.generateFeatureString(testId);
       if (result.isEmpty()) {
          throw new IOException("The feature string recieved from Rest Client is empty.");
       }
@@ -59,7 +59,7 @@ public class RestResource implements Resource {
 
    private String[] getMetaDataArray() {
       String[] data = new String[2];
-      data[0] = issueKey;
+      data[0] = testId;
       data[1] = getTimeFormatted();
       return data;
    }

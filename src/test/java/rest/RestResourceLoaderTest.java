@@ -18,14 +18,14 @@ public class RestResourceLoaderTest {
    public void setUp() {
       Set<String> issues = new HashSet<String>();
       issues.add("5555");
-      when(restClient.getIssues()).thenReturn(issues);
+      when(restClient.getTestIds()).thenReturn(issues);
    }
 
    @Test
    public void whenPropertiesFileComplete_thenIssuesListIsPopulated()
       throws FileNotFoundException, IOException {
       RestResourceLoader loader = new RestResourceLoader(restClient);
-      List<RestResource> resourceList = loader.getIssues();
+      List<RestResource> resourceList = loader.getTestCases();
       assertTrue(!resourceList.isEmpty());
    }
 

@@ -4,21 +4,21 @@ import java.util.Map;
 
 public class ResultOutput {
    private static final String TEST_NAME = "Automated cucumber test";
-   private String issueId;
+   private String testId;
    private String result;
    private String comment;
    private Map<String, String> scenarioResults;
 
-   public ResultOutput(String issueId, String result, String comment,
+   public ResultOutput(String testId, String result, String comment,
       Map<String, String> scenarioResults) {
-      this.issueId = issueId;
+      this.testId = testId;
       this.result = result;
       this.comment = comment;
       this.scenarioResults = scenarioResults;
    }
 
-   public String getIssueId() {
-      return issueId;
+   public String getTestId() {
+      return testId;
    }
 
    public String getResult() {

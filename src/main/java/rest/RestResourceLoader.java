@@ -5,29 +5,29 @@ import org.apache.commons.lang3.Validate;
 import cucumber.runtime.io.Resource;
 
 public class RestResourceLoader implements Iterable<Resource> {
-   private List<RestResource> issues;
+   private List<RestResource> testCases;
    private CucumberRestClient restClient;
 
    public RestResourceLoader(CucumberRestClient restClient) {
       Validate.notNull(restClient);
       this.restClient = restClient;
-      issues = new ArrayList<RestResource>();
-      loadIssues();
+      testCases = new ArrayList<RestResource>();
+      loadTestCases();
    }
 
-   private void loadIssues() {
-      Set<String> issueKeys = restClient.getIssues();
-      Validate.notEmpty(issueKeys);
-      for (String issueKey : issueKeys) {
-         issues.add(new RestResource(issueKey, "LoadedFromRestClient", restClient));
+   private void loadTestCases() {
+      Set<String> testIds = restClient.getTestIds();
+      Validate.notEmpty(testIds);
+      for (String testId : testIds) {
+         testCases.add(new RestResource(testId, "LoadedFromRestClient", restClient));
       }
    }
 
-   public List<RestResource> getIssues() {
-      return issues;
+   public List<RestResource> getTestCases() {
+      return testCases;
    }
 
    public Iterator<Resource> iterator() {
-      return new RestResourceIterator(issues);
+      return new RestResourceIterator(testCases);
    }
 }

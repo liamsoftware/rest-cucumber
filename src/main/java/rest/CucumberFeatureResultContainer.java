@@ -6,12 +6,12 @@ import cucumber.runtime.model.CucumberFeature;
 public class CucumberFeatureResultContainer {
    private CucumberFeature cucumberFeature;
    private List<RestScenarioResult> results;
-   private String issueKey;
+   private String testId;
 
    public CucumberFeatureResultContainer(CucumberFeature cucumberFeature) {
       this.cucumberFeature = cucumberFeature;
       this.results = new ArrayList<RestScenarioResult>();
-      setIssueKey();
+      setTestId();
    }
 
    public Map<String, String> getStepResults() {
@@ -49,8 +49,8 @@ public class CucumberFeatureResultContainer {
       return comment;
    }
 
-   public String getIssueKey() {
-      return issueKey;
+   public String getTestId() {
+      return testId;
    }
 
    public boolean addResult(RestScenarioResult restScenarioResult) {
@@ -58,12 +58,12 @@ public class CucumberFeatureResultContainer {
    }
 
    public String toString() {
-      return issueKey + " [No. Scenarios: " + results.size() + "]" + featureTestResult();
+      return testId + " [No. Scenarios: " + results.size() + "]" + featureTestResult();
    }
 
    public String featureTestResult() {
       if (results.isEmpty()) {
-         return "No scenario results have been logged for issue " + getIssueKey();
+         return "No scenario results have been logged for issue " + getTestId();
       }
 
       String result = "Passed";
@@ -75,7 +75,7 @@ public class CucumberFeatureResultContainer {
             passCount++;
          }
       }
-      return issueKey + "[Feature Result:" + result + "] [" + passCount + " out of "
+      return testId + "[Feature Result:" + result + "] [" + passCount + " out of "
          + results.size() + " passed]";
    }
 
@@ -89,15 +89,15 @@ public class CucumberFeatureResultContainer {
       return result;
    }
 
-   private void setIssueKey() {
+   private void setTestId() {
       String[] meta = cucumberFeature.getPath().split(",");
-      issueKey = meta[0];
+      testId = meta[0];
 
-      if (issueKey.contains("[")) {
-         issueKey = issueKey.replace("[", "");
+      if (testId.contains("[")) {
+         testId = testId.replace("[", "");
       }
-      if (issueKey.contains("]")) {
-         issueKey = issueKey.replace("]", "");
+      if (testId.contains("]")) {
+         testId = testId.replace("]", "");
       }
    }
 }

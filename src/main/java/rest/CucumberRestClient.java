@@ -3,9 +3,9 @@ package rest;
 import java.util.Set;
 
 public interface CucumberRestClient {
-   String generateFeatureString(String issueKey);
+   String generateFeatureString(String testId);
 
-   boolean updateExecution(ResultOutput resultOutput);
+   boolean updateTest(ResultOutput resultOutput);
 
-   Set<String> getIssues();
+   Set<String> getTestIds();
 }

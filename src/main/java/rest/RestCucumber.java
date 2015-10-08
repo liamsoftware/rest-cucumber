@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.ParentRunner;
@@ -76,8 +77,8 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
       if (annotation instanceof RestCucumberOptions) {
          RestCucumberOptions restCucumberOptions = (RestCucumberOptions) annotation;
          String clientName = restCucumberOptions.restClient();
-         String pathToPropertiesFile = restCucumberOptions.path();
-         uploadResultEnabled = restCucumberOptions.uploadResultEnabled();
+         String pathToPropertiesFile = restCucumberOptions.pathToProperties();
+         uploadResultEnabled = restCucumberOptions.uploadTestResults();
 
          try {
             restClientCreatedAtRuntime = Class.forName(clientName);
@@ -154,17 +155,21 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
       }
 
       if (uploadResultEnabled) {
-         List<CucumberFeatureResultContainer> summaryList = runtime.getResults();
-         for (CucumberFeatureResultContainer container : summaryList) {
-            String issueKey = container.getIssueKey();
-            String status = container.getFeatureResult();
-            String comment = container.getComment();
-            ResultOutput result =
-               new ResultOutput(issueKey, status, comment, container.getStepResults());
-            restClient.updateExecution(result);
-         }
+         uploadResultsToRestClient();
       }
       printSummaryOfMissingStepsIfAny();
+   }
+
+   private void uploadResultsToRestClient() {
+      List<CucumberFeatureResultContainer> resultContainers = runtime.getResults();
+      for (CucumberFeatureResultContainer aResultContainer : resultContainers) {
+         String testId = aResultContainer.getTestId();
+         String status = aResultContainer.getFeatureResult();
+         String comment = aResultContainer.getComment();
+         Map<String, String> stepResults = aResultContainer.getStepResults();
+         ResultOutput result = new ResultOutput(testId, status, comment, stepResults);
+         restClient.updateTest(result);
+      }
    }
 
    private void printSummaryOfMissingStepsIfAny() {

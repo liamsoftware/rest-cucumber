@@ -16,7 +16,7 @@ public class CucumberFeatureResultContainerTest {
    public void whenContainerCreated_thenIssueKeyAssignedCorrectly() {
       when(cucumberFeature.getPath()).thenReturn("[TEST-123],[00:00:00]");
       container = new CucumberFeatureResultContainer(cucumberFeature);
-      assertEquals("IssueKey has not been set correctly", container.getIssueKey(),
+      assertEquals("IssueKey has not been set correctly", container.getTestId(),
          "TEST-123");
    }
 

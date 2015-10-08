@@ -20,7 +20,7 @@ public class RestMultiLoaderTest {
    public void setUp() {
       Set<String> issues = new HashSet<String>();
       issues.add("2322");
-      when(restClient.getIssues()).thenReturn(issues);
+      when(restClient.getTestIds()).thenReturn(issues);
    }
 
    @Test

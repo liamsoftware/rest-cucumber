@@ -63,8 +63,8 @@ public class Summariser {
          restScenarioList.add(restScenarioResult);
          CucumberFeature cucumberFeature = scenarios.get(scenario);
 
-         String issueKey = getIssueKeyFromCucumberFeature(cucumberFeature);
-         int index = checkIfContainerAlreadyExistsForIssueKey(issueKey);
+         String issueKey = getTestIdsFromCucumberFeature(cucumberFeature);
+         int index = checkIfContainerAlreadyExistsForTestId(issueKey);
          if (index == -1) {
             createNewContainer(cucumberFeature, restScenarioResult);
          } else {
@@ -73,22 +73,22 @@ public class Summariser {
       }
    }
 
-   private String getIssueKeyFromCucumberFeature(CucumberFeature cucumberFeature) {
-      String issueKey = cucumberFeature.getPath();
-      if (!issueKey.contains(",")) {
+   private String getTestIdsFromCucumberFeature(CucumberFeature cucumberFeature) {
+      String testId = cucumberFeature.getPath();
+      if (!testId.contains(",")) {
          throw new IllegalArgumentException(
-            "Issue key hass not been assigned to the cucumber feature correctly.");
+            "Test ID hass not been assigned to the cucumber feature correctly.");
       }
-      issueKey = issueKey.split(",")[0];
-      issueKey = issueKey.replace("[", "");
-      return issueKey;
+      testId = testId.split(",")[0];
+      testId = testId.replace("[", "");
+      return testId;
    }
 
-   private int checkIfContainerAlreadyExistsForIssueKey(String issueKey) {
+   private int checkIfContainerAlreadyExistsForTestId(String testId) {
       int index = -1;
       for (int i = 0; i < containers.size(); i++) {
          CucumberFeatureResultContainer c = containers.get(i);
-         if (issueKey.equals(c.getIssueKey())) {
+         if (testId.equals(c.getTestId())) {
             index = i;
          }
       }

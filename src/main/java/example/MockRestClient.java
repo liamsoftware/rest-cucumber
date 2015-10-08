@@ -13,8 +13,7 @@ public class MockRestClient implements CucumberRestClient {
    public MockRestClient() {
    }
 
-   public String generateFeatureString(String issueKey) {
-      issueKey = "test";
+   public String generateFeatureString(String testId) {
       return "Feature: Mock feature 1\n" + "Scenario: Creating a mock\n"
          + "Given I have 43 cukes in my belly\n" + "When I wait 1 hour\n"
          + "Then my belly should growl\n" + "Scenario: Creating a mock2\n"
@@ -22,13 +21,13 @@ public class MockRestClient implements CucumberRestClient {
          + "Then On the other side";
    }
 
-   public boolean updateExecution(ResultOutput resultOutput) {
+   public boolean updateTest(ResultOutput resultOutput) {
       return false;
    }
 
-   public Set<String> getIssues() {
-      Set<String> issues = new HashSet<String>();
-      issues.add("1234");
-      return issues;
+   public Set<String> getTestIds() {
+      Set<String> testIds = new HashSet<String>();
+      testIds.add("testId123");
+      return testIds;
    }
 }

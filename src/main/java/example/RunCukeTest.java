@@ -5,7 +5,7 @@ import rest.RestCucumber;
 import rest.RestCucumberOptions;
 
 @RunWith(RestCucumber.class)
-@RestCucumberOptions(restClient = "example.MockRestClient", path = "client.properties",
-   uploadResultEnabled = false)
+@RestCucumberOptions(restClient = "example.MockRestClient",
+   pathToProperties = "client.properties", uploadTestResults = false)
 public class RunCukeTest {
 }
