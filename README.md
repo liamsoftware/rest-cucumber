@@ -10,8 +10,8 @@ RestCucumber allows for execution of Cucumber BDD tests on feature files that ar
 Create a class to launch your Cucumber tests. 
 * Include the RestCucumber.class as the @RunWith option
 * Include the @RestCucumberOptions annotation which defines 
-** The Rest Client class that RestCucumber will load
-** A flag to indicate if test results should be posted back to the Rest Client
+	* The Rest Client class that RestCucumber will load
+	* A flag to indicate if test results should be posted back to the Rest Client
 * See the [sample package](https://github.com/LiamHayes1/rest-cucumber/tree/master/src/main/java/example) including [RunCukeTest](https://github.com/LiamHayes1/rest-cucumber/blob/master/src/main/java/example/RunCukeTest.java)
 
 ```
