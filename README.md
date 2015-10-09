@@ -34,7 +34,7 @@ Storing feature files on developers local machines means that there can be a num
 
 Clone the repo or add the release version as a Maven dependency to your project:
 
-```
+```xml
 <dependency>
     <groupId>com.github.liamhayes1</groupId>
     <artifactId>rest-cucumber</artifactId>
@@ -45,7 +45,7 @@ Clone the repo or add the release version as a Maven dependency to your project:
 ## API Reference
 
 CucumberRestClient interface implements 3 method signatures and must be included in any RestClient being used with RestCucumber.
-```
+```java
 String getFeatureString(String testId)
 boolean updateTest(ResultOutput resultOutput)
 Set<String> getTestIds()
