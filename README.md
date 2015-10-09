@@ -7,9 +7,11 @@ RestCucumber allows for execution of Cucumber BDD tests on feature files that ar
 
 ## Code Example
 
-* Add a properties file to your project which contains the details to create your Rest Client
-* Create a Rest Client builder with a method signature public static CucumberRestClient buildClient(String pathToPropertiesFile)
-* Create a class to run your Cucumber test which includes the RestCucumberOptions as outlined in the below example
+Create a class to launch your Cucumber tests. 
+* Include the RestCucumber.class as the @RunWith option
+* Include the @RestCucumberOptions annotation which defines 
+** The Rest Client class that RestCucumber will load
+** A flag to indicate if test results should be posted back to the Rest Client
 * See the [sample package](https://github.com/LiamHayes1/rest-cucumber/tree/master/src/main/java/example) including [RunCukeTest](https://github.com/LiamHayes1/rest-cucumber/blob/master/src/main/java/example/RunCukeTest.java)
 
 ```
@@ -19,8 +21,7 @@ import org.junit.runner.RunWith;
 import cucumber.api.CucumberOptions;
 
 @RunWith(RestCucumber.class)
-@RestCucumberOptions(restClient = "example.MockRestClient", pathToProperties = "client.properties",
-   uploadTestResults = false)
+@RestCucumberOptions(restClient = RestClientExample.class, uploadTestResults = false)
 public class RunCukeTest {
 }
 ```
@@ -43,11 +44,11 @@ Clone the repo or add the release version as a Maven dependency to your project:
 
 ## API Reference
 
-CucumberRestClient interface implements 3 method signatures and must be included in any RestClient being used with JiraCucumber.
+CucumberRestClient interface implements 3 method signatures and must be included in any RestClient being used with RestCucumber.
 ```
-String generateFeatureString(String issueKey)
-boolean updateExecution(ResultOutput resultOutput)
-Set<String> getIssues()
+String getFeatureString(String testId)
+boolean updateTest(ResultOutput resultOutput)
+Set<String> getTestIds()
 ```
 
 ## Tests
