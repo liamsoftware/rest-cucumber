@@ -14,7 +14,7 @@ Create a class to launch your Cucumber tests.
 	* A flag to indicate if test results should be posted back to the Rest Client
 * See the [sample package](https://github.com/LiamHayes1/rest-cucumber/tree/master/src/main/java/example) including [RunCukeTest](https://github.com/LiamHayes1/rest-cucumber/blob/master/src/main/java/example/RunCukeTest.java)
 
-```
+```java
 import jira.RestCucumber;
 import jira.RestCucumberOptions;
 import org.junit.runner.RunWith;
