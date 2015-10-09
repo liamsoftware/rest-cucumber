@@ -41,7 +41,7 @@ public class RestResource implements Resource {
    }
 
    public InputStream getInputStream() throws IOException {
-      String result = client.generateFeatureString(testId);
+      String result = client.getFeatureString(testId);
       if (result.isEmpty()) {
          throw new IOException("The feature string recieved from Rest Client is empty.");
       }

@@ -7,10 +7,10 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Test;
-import example.MockRestClient;
+import example.RestClientExample;
 
 public class RestResourceTest {
-   private MockRestClient client = mock(MockRestClient.class);
+   private RestClientExample client = mock(RestClientExample.class);
    private RestResource jiraResource;
    private String dummyFeatureString = "Feature: example feature \n"
       + "Scenario: Credit card number too short \n"
@@ -21,7 +21,7 @@ public class RestResourceTest {
    @Test
    public void whenRestClientProvided_thenFeatureStringIsCreatedCorrectly()
       throws IOException {
-      when(client.generateFeatureString(anyString())).thenReturn(dummyFeatureString);
+      when(client.getFeatureString(anyString())).thenReturn(dummyFeatureString);
       jiraResource = new RestResource("TEST-1234", "www.base.url", client);
 
       InputStream inputStream = jiraResource.getInputStream();
@@ -31,7 +31,7 @@ public class RestResourceTest {
    @Test(expected = IOException.class)
    public void whenRestClientWithEmptyFeatureStringIsProvided_thenAnExceptionIsThrown()
       throws IOException {
-      when(client.generateFeatureString(anyString())).thenReturn("");
+      when(client.getFeatureString(anyString())).thenReturn("");
       jiraResource = new RestResource("TEST-1234", "www.base.url", client);
       InputStream inputStream = jiraResource.getInputStream();
       assertTrue(inputStream != null);

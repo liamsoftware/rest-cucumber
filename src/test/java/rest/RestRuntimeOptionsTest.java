@@ -41,7 +41,7 @@ public class RestRuntimeOptionsTest {
       when(runtimeOptions.getFilters()).thenReturn(filterList);
       jiraRuntimeOptions = new RestRuntimeOptions(runtimeOptions);
       jiraMultiLoader.setRestClient(restClient);
-      when(restClient.generateFeatureString(anyString())).thenReturn(feature);
+      when(restClient.getFeatureString(anyString())).thenReturn(feature);
       cucumberFeatures = jiraRuntimeOptions.cucumberFeatures(jiraMultiLoader);
       assertTrue(cucumberFeatures != null);
    }

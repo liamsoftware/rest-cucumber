@@ -9,10 +9,10 @@ import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
 import cucumber.runtime.io.Resource;
-import example.MockRestClient;
+import example.RestClientExample;
 
 public class RestResourceLoaderTest {
-   private CucumberRestClient restClient = mock(MockRestClient.class);
+   private CucumberRestClient restClient = mock(RestClientExample.class);
 
    @Before
    public void setUp() {

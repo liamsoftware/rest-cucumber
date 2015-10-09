@@ -2,8 +2,8 @@ package rest;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +33,6 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
    private final List<RestFeatureRunner> children = new ArrayList<RestFeatureRunner>();
    private final RestRuntime runtime;
    private final List<CucumberFeature> cucumberFeatures;
-   private Class<?> restClientCreatedAtRuntime;
    private CucumberRestClient restClient = null;
    private boolean uploadResultEnabled = true;
 
@@ -76,39 +75,34 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
       Annotation annotation = clazz.getAnnotation(RestCucumberOptions.class);
       if (annotation instanceof RestCucumberOptions) {
          RestCucumberOptions restCucumberOptions = (RestCucumberOptions) annotation;
-         String clientName = restCucumberOptions.restClient();
-         String pathToPropertiesFile = restCucumberOptions.pathToProperties();
+         Class<?> restClientClass = restCucumberOptions.restClient();
          uploadResultEnabled = restCucumberOptions.uploadTestResults();
-
-         try {
-            restClientCreatedAtRuntime = Class.forName(clientName);
-         } catch (ClassNotFoundException e) {
-            throw new CucumberInitException(
-               "Rest client class not found. Ensure class name is correct and on the classpath",
-               e);
-         }
-
-         Method method = null;
-         try {
-            method = restClientCreatedAtRuntime.getMethod("buildClient", String.class);
-            restClient = (CucumberRestClient) method.invoke(null, pathToPropertiesFile);
-         } catch (IllegalAccessException e) {
-            throw new CucumberInitException("Rest client illegal access.", e);
-         } catch (NoSuchMethodException e) {
-            throw new CucumberInitException("Rest client no method exists.", e);
-         } catch (SecurityException e) {
-            throw new CucumberInitException("Rest client security error.", e);
-         } catch (IllegalArgumentException e) {
-            throw new CucumberInitException("Rest client illegal args.", e);
-         } catch (InvocationTargetException e) {
-            throw new CucumberInitException("Rest client invocation failed.", e);
-         }
-
+         loadRestClientClass(restClientClass);
          if (restClient == null) {
             throw new CucumberInitException(
                "Rest client is null. Please ensure your client built correctly.",
                new NullPointerException());
          }
+      }
+   }
+
+   private void loadRestClientClass(Class<?> restClientClass) {
+      try {
+         Constructor<?> ctor = restClientClass.getConstructor();
+         Object object = ctor.newInstance(new Object[] {});
+         restClient = (CucumberRestClient) object;
+      } catch (NoSuchMethodException e) {
+         throw new CucumberInitException(e);
+      } catch (SecurityException e) {
+         throw new CucumberInitException(e);
+      } catch (InstantiationException e) {
+         throw new CucumberInitException(e);
+      } catch (IllegalAccessException e) {
+         throw new CucumberInitException(e);
+      } catch (IllegalArgumentException e) {
+         throw new CucumberInitException(e);
+      } catch (InvocationTargetException e) {
+         throw new CucumberInitException(e);
       }
    }
 
