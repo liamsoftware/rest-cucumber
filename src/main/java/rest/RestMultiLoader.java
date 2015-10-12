@@ -14,8 +14,7 @@ public class RestMultiLoader implements ResourceLoader {
    }
 
    public void setRestClient(CucumberRestClient restClient) {
-      Validate.notNull(restClient);
-      this.restClient = restClient;
+      this.restClient = Validate.notNull(restClient);
    }
 
    public boolean hasRestClientSet() {

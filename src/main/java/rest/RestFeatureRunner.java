@@ -12,7 +12,6 @@ import cucumber.runtime.model.*;
 
 public class RestFeatureRunner extends ParentRunner<ParentRunner<?>> {
    private final List<ParentRunner<?>> children = new ArrayList<ParentRunner<?>>();
-
    private final CucumberFeature cucumberFeature;
    private final RestRuntime runtime;
    private final RestJUnitReporter jUnitReporter;

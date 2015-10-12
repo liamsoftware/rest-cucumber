@@ -22,7 +22,7 @@ public class Summariser {
    }
 
    public List<RestScenarioResult> getScenarioResults() {
-      return restScenarioList;
+      return Collections.unmodifiableList(restScenarioList);
    }
 
    public List<CucumberFeatureResultContainer> getContainers() {

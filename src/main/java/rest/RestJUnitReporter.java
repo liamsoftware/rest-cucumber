@@ -5,9 +5,7 @@ import gherkin.formatter.Reporter;
 import gherkin.formatter.model.Match;
 import gherkin.formatter.model.Result;
 import gherkin.formatter.model.Step;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
 import cucumber.runtime.junit.ExecutionUnitRunner;
@@ -17,11 +15,11 @@ import cucumber.runtime.model.CucumberFeature;
 public class RestJUnitReporter extends JUnitReporter {
    private String currentStep;
    private RestExecutionUnitRunner executionUnitRunner;
+   private Summariser summariser;
+   private final RestRuntime runtime;
+   private CucumberFeature currentCucumberFeature;
    private Map<String, String> results;
    private Map<String, CucumberFeature> features;
-   private Summariser summariser;
-   private RestRuntime runtime;
-   private CucumberFeature currentCucumberFeature;
 
    public RestJUnitReporter(Reporter reporter, Formatter formatter, boolean strict,
       RestRuntime runtime) {
@@ -93,11 +91,11 @@ public class RestJUnitReporter extends JUnitReporter {
    }
 
    public Map<String, String> getResultMap() {
-      return results;
+      return Collections.unmodifiableMap(results);
    }
 
    public Map<String, CucumberFeature> getFeatureMap() {
-      return features;
+      return Collections.unmodifiableMap(features);
    }
 
    public String getCurrentStep() {

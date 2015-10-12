@@ -28,7 +28,7 @@ public class RestResourceIteratorTest {
       jrList.add(jr);
       it = new RestResourceIterator(jrList);
       RestResource jrFromIterator = (RestResource) it.next();
-      assertEquals(jrFromIterator.getTestId(), ISSUE_KEY);
+      assertEquals(jrFromIterator.testId, ISSUE_KEY);
    }
 
    @Test

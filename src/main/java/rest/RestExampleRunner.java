@@ -16,8 +16,8 @@ import cucumber.runtime.model.CucumberScenario;
 
 public class RestExampleRunner extends Suite {
    private final CucumberExamples cucumberExamples;
+   private final JUnitReporter jUnitReporter;
    private Description description;
-   private JUnitReporter jUnitReporter;
 
    protected RestExampleRunner(RestRuntime runtime, CucumberExamples cucumberExamples,
       RestJUnitReporter jUnitReporter, CucumberFeature cucumberFeature)

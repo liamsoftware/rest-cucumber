@@ -10,30 +10,21 @@ import cucumber.runtime.io.Resource;
 
 public class RestResource implements Resource {
    private CucumberRestClient client;
-   private String testId = null;
-   private String path = null;
+   public final String testId;
+   public final String path;
    private long creationTime;
 
    public RestResource(String testId, String baseUrl) {
-      Validate.notEmpty(testId);
-      Validate.notEmpty(baseUrl);
-      this.testId = testId;
-      path = baseUrl;
+      this.testId = Validate.notEmpty(testId);
+      path = Validate.notEmpty(baseUrl);
       creationTime = System.currentTimeMillis();
    }
 
    public RestResource(String testId, String baseUrl, CucumberRestClient restClient) {
-      Validate.notEmpty(testId);
-      Validate.notEmpty(baseUrl);
-      Validate.notNull(restClient);
-      this.testId = testId;
-      path = baseUrl;
-      client = restClient;
+      this.testId = Validate.notEmpty(testId);
+      path = Validate.notEmpty(baseUrl);
+      client = Validate.notNull(restClient);
       creationTime = System.currentTimeMillis();
-   }
-
-   public String getTestId() {
-      return testId;
    }
 
    public String getAbsolutePath() {

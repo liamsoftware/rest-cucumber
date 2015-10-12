@@ -11,17 +11,15 @@ import cucumber.runtime.model.CucumberScenario;
 import cucumber.runtime.model.CucumberTagStatement;
 
 public class RestExecutionUnitRunner extends ExecutionUnitRunner {
-   private RestRuntime runtime;
-   private CucumberFeature cucumberFeature;
+   private final RestRuntime runtime;
+   private final CucumberFeature cucumberFeature;
 
    public RestExecutionUnitRunner(RestRuntime runtime,
       CucumberTagStatement cucumberScenario, RestJUnitReporter jUnitReporter,
       CucumberFeature cucumberFeature) throws InitializationError {
       super(runtime.getRuntime(), (CucumberScenario) cucumberScenario, jUnitReporter);
-      Validate.notNull(runtime);
-      Validate.notNull(cucumberFeature);
-      this.runtime = runtime;
-      this.cucumberFeature = cucumberFeature;
+      this.runtime = Validate.notNull(runtime);
+      this.cucumberFeature = Validate.notNull(cucumberFeature);
    }
 
    @Override
