@@ -32,7 +32,7 @@ public class RestScenarioResultTest {
       String aScenarioName = "aScenarioName";
       scenarioResult = new RestScenarioResult(aScenarioName, stepsWithResults);
       assertEquals("Scenario name is not set correctly", aScenarioName,
-         scenarioResult.getScenario());
+         scenarioResult.scenario);
    }
 
    @Test

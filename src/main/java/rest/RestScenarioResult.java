@@ -1,17 +1,15 @@
 package rest;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RestScenarioResult {
+   public final String scenario;
    private static final String PASSED_STEP_RESULT = "[passed]";
    private static final String PASS_SCENARIO_RESULT = "pass";
    private static final String FAIL_SCENARIO_RESULT = "fail";
    private Map<String, String> stepsWithResults;
    private List<String> passedSteps;
    private List<String> failedSteps;
-   private String scenario;
    private String scenarioResult;
 
    public RestScenarioResult(String scenario, Map<String, String> stepsWithResults) {
@@ -38,16 +36,12 @@ public class RestScenarioResult {
       }
    }
 
-   public String getScenario() {
-      return scenario;
-   }
-
    public String getScenarioResult() {
       return scenarioResult;
    }
 
    public Map<String, String> getStepsWithResults() {
-      return stepsWithResults;
+      return Collections.unmodifiableMap(stepsWithResults);
    }
 
    public String toString() {

@@ -44,7 +44,7 @@ public class CucumberFeatureResultContainer {
    public String getComment() {
       String comment = "";
       for (RestScenarioResult r : results) {
-         comment += "[" + r.getScenarioResult() + "] " + r.getScenario() + "\n";
+         comment += "[" + r.getScenarioResult() + "] " + r.scenario + "\n";
       }
       return comment;
    }
