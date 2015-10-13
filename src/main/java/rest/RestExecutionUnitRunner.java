@@ -28,7 +28,9 @@ public class RestExecutionUnitRunner extends ExecutionUnitRunner {
       super.run(notifier);
    }
 
+   @Override
    public Description describeChild(Step step) {
+      Validate.notNull(step);
       return super.describeChild(step);
    }
 }

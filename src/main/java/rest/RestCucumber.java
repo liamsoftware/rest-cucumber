@@ -30,7 +30,6 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
    private final RestJUnitReporter jUnitReporter;
    private final List<RestFeatureRunner> children = new ArrayList<RestFeatureRunner>();
    private final RestRuntime runtime;
-   private final List<CucumberFeature> cucumberFeatures;
    private CucumberRestClient restClient = null;
    private boolean uploadResultEnabled = true;
 
@@ -55,7 +54,8 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
       }
       runtime =
          createRuntime(resourceLoader, classLoader, runtimeOptions.getRuntimeOptions());
-      cucumberFeatures = runtimeOptions.cucumberFeatures(resourceLoader);
+      List<CucumberFeature> cucumberFeatures =
+         runtimeOptions.cucumberFeatures(resourceLoader);
       jUnitReporter =
          new RestJUnitReporter(runtimeOptions.reporter(classLoader),
             runtimeOptions.formatter(classLoader), runtimeOptions.isStrict(), runtime);

@@ -21,10 +21,11 @@ public class RestClientExample implements CucumberRestClient {
    public boolean updateTest(ResultOutput resultOutput) {
       String testId = resultOutput.testId;
       String result = resultOutput.result;
-      String stepResults = "\n";
+      StringBuilder stepResults = new StringBuilder("\n");
       Map<String, String> results = resultOutput.scenarioResults;
       for (Map.Entry<String, String> entry : results.entrySet()) {
-         stepResults += entry.getKey() + " - " + entry.getValue() + "\n";
+         stepResults.append(entry.getKey()).append(" - ").append(entry.getValue())
+            .append("\n");
       }
       String summary =
          String.format("TestID: %s, Result: %s, Step Results: %s", testId, result,
