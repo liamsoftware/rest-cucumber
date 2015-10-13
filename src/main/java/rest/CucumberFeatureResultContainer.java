@@ -17,10 +17,7 @@ public class CucumberFeatureResultContainer {
    public Map<String, String> getStepResults() {
       Map<String, String> stepResults = new HashMap<String, String>();
       for (RestScenarioResult aRestScenarioResult : results) {
-         Map<String, String> stepResult = aRestScenarioResult.getStepsWithResults();
-         for (String step : stepResult.keySet()) {
-            stepResults.put(step, stepResult.get(step));
-         }
+         stepResults.putAll(aRestScenarioResult.getStepsWithResults());
       }
       stepResults = sanitiseResults(stepResults);
       return stepResults;
@@ -28,25 +25,26 @@ public class CucumberFeatureResultContainer {
 
    private Map<String, String> sanitiseResults(Map<String, String> stepResults) {
       Map<String, String> sanitisedScenarioResults = new HashMap<String, String>();
-      for (String k : stepResults.keySet()) {
-         String result = stepResults.get(k);
-         String step = new String(k);
-         step = step.replace("[", "");
-         step = step.replace("]", "");
-         step = step.substring(1).trim();
-         result = result.replace("[", "");
-         result = result.replace("]", "");
-         sanitisedScenarioResults.put(step, result);
+      for (Map.Entry<String, String> entry : stepResults.entrySet()) {
+         String entryValue = entry.getValue();
+         String entryKey = entry.getKey();
+         entryKey = entryKey.replace("[", "");
+         entryKey = entryKey.replace("]", "");
+         entryKey = entryKey.substring(1).trim();
+         entryValue = entryValue.replace("[", "");
+         entryValue = entryValue.replace("]", "");
+         sanitisedScenarioResults.put(entryKey, entryValue);
       }
       return sanitisedScenarioResults;
    }
 
    public String getComment() {
-      String comment = "";
+      StringBuilder comment = new StringBuilder();
       for (RestScenarioResult r : results) {
-         comment += "[" + r.getScenarioResult() + "] " + r.scenario + "\n";
+         comment.append("[").append(r.getScenarioResult()).append("] ")
+            .append(r.scenario).append("\n");
       }
-      return comment;
+      return comment.toString();
    }
 
    public String getTestId() {

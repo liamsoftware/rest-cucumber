@@ -39,8 +39,8 @@ public class RestExampleRunner extends Suite {
                new RestExecutionUnitRunner(runtime, scenario, jUnitReporter,
                   cucumberFeature);
             runners.add(exampleScenarioRunner);
-         } catch (InitializationError initializationError) {
-            initializationError.printStackTrace();
+         } catch (InitializationError e) {
+            throw new CucumberInitException(e);
          }
       }
       return runners;

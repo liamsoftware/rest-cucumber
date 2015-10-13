@@ -31,9 +31,8 @@ public class Summariser {
 
    private Map<String, CucumberFeature> createMapOfScenarios() {
       Map<String, CucumberFeature> scenarios = new HashMap<String, CucumberFeature>();
-      for (String k : features.keySet()) {
-         String scenario = getScenarioString(k);
-         scenarios.put(scenario, features.get(k));
+      for (Map.Entry<String, CucumberFeature> entry : features.entrySet()) {
+         scenarios.put(getScenarioString(entry.getKey()), entry.getValue());
       }
       return scenarios;
    }
@@ -57,12 +56,11 @@ public class Summariser {
       Map<String, CucumberFeature> scenarios = createMapOfScenarios();
       restScenarioList = new ArrayList<RestScenarioResult>();
 
-      for (String scenario : scenarios.keySet()) {
+      for (Map.Entry<String, CucumberFeature> entry : scenarios.entrySet()) {
          RestScenarioResult restScenarioResult =
-            createRestResultForScenario(scenario, results);
+            createRestResultForScenario(entry.getKey(), results);
          restScenarioList.add(restScenarioResult);
-         CucumberFeature cucumberFeature = scenarios.get(scenario);
-
+         CucumberFeature cucumberFeature = entry.getValue();
          String issueKey = getTestIdsFromCucumberFeature(cucumberFeature);
          int index = checkIfContainerAlreadyExistsForTestId(issueKey);
          if (index == -1) {

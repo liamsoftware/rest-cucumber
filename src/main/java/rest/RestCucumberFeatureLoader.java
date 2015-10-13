@@ -1,6 +1,7 @@
 package rest;
 
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.util.*;
 import cucumber.runtime.FeatureBuilder;
 import cucumber.runtime.io.Resource;
@@ -87,7 +88,9 @@ public class RestCucumberFeatureLoader {
    }
 
    private static class CucumberFeatureUriComparator implements
-      Comparator<CucumberFeature> {
+      Comparator<CucumberFeature>, Serializable {
+      private static final long serialVersionUID = 1L;
+
       public int compare(CucumberFeature a, CucumberFeature b) {
          return a.getPath().compareTo(b.getPath());
       }

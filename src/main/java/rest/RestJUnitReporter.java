@@ -17,7 +17,6 @@ public class RestJUnitReporter extends JUnitReporter {
    private RestExecutionUnitRunner executionUnitRunner;
    private Summariser summariser;
    private final RestRuntime runtime;
-   private CucumberFeature currentCucumberFeature;
    private Map<String, String> results;
    private Map<String, CucumberFeature> features;
 
@@ -31,7 +30,7 @@ public class RestJUnitReporter extends JUnitReporter {
 
    @Override
    public void result(Result result) {
-      currentCucumberFeature = runtime.getCurrentCucumberFeature();
+      CucumberFeature currentCucumberFeature = runtime.getCurrentCucumberFeature();
       features.put(currentStep, currentCucumberFeature);
       results.put(currentStep, result.getStatus());
       super.result(result);
@@ -57,24 +56,21 @@ public class RestJUnitReporter extends JUnitReporter {
       Step runnerStep = steps.get(0);
       Description description = executionUnitRunner.describeChild(runnerStep);
       currentStep = description.toString();
-      currentStep = currentStep == null ? null : removeBrackets(currentStep);
+      if (currentStep.contains("(") || currentStep.contains(")")) {
+         currentStep = removeBrackets(currentStep);
+      }
    }
 
    private String removeBrackets(String s) {
       char[] charArray = s.toCharArray();
-      String sWithoutBrackets = "";
+      StringBuilder sWithoutBrackets = new StringBuilder();
       for (char ch : charArray) {
          if (ch == '(' || ch == ')') {
             ch = ' ';
          }
-         sWithoutBrackets += ch;
+         sWithoutBrackets.append(ch);
       }
-      return sWithoutBrackets;
-   }
-
-   @Override
-   public void close() {
-      super.close();
+      return sWithoutBrackets.toString();
    }
 
    public void closeWithSummariser() {

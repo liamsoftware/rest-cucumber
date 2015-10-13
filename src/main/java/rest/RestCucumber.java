@@ -72,8 +72,7 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
          loadRestClientClass(restClientClass);
          if (restClient == null) {
             throw new CucumberInitException(
-               "Rest client is null. Please ensure your client built correctly.",
-               new NullPointerException());
+               "Rest client is null. Please ensure your client built correctly.");
          }
       }
    }

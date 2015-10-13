@@ -23,8 +23,8 @@ public class RestClientExample implements CucumberRestClient {
       String result = resultOutput.result;
       String stepResults = "\n";
       Map<String, String> results = resultOutput.scenarioResults;
-      for (String k : results.keySet()) {
-         stepResults += k + " - " + results.get(k) + "\n";
+      for (Map.Entry<String, String> entry : results.entrySet()) {
+         stepResults += entry.getKey() + " - " + entry.getValue() + "\n";
       }
       String summary =
          String.format("TestID: %s, Result: %s, Step Results: %s", testId, result,

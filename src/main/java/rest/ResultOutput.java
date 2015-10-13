@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Map;
 
 public class ResultOutput {
-   public final String testName = "Automated cucumber test";
+   public static final String testName = "Automated cucumber test";
    public final String testId;
    public final String result;
    public final String comment;

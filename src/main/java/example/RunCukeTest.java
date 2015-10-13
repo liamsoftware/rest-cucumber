@@ -5,6 +5,6 @@ import rest.RestCucumber;
 import rest.RestCucumberOptions;
 
 @RunWith(RestCucumber.class)
-@RestCucumberOptions(restClient = RestClientExample.class, uploadTestResults = false)
+@RestCucumberOptions(restClient = RestClientExample.class, uploadTestResults = true)
 public class RunCukeTest {
 }
