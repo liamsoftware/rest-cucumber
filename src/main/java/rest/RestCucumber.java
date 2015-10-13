@@ -18,11 +18,12 @@ import cucumber.runtime.junit.Assertions;
 import cucumber.runtime.model.CucumberFeature;
 
 /**
- * <p> Classes annotated with {@code @RunWith(Cucumber.class)} will run a Cucumber
+ * <p> Classes annotated with {@code @RunWith(RestCucumber.class)} will run a Cucumber
  * Feature. The class should be empty without any fields or methods. </p> <p> Cucumber
- * will look for a {@code .feature} file on the classpath, using the same resource path as
- * the annotated class ({@code .class} substituted by {@code .feature}). </p> Additional
- * hints can be given to Cucumber by annotating the class with {@link CucumberOptions}.
+ * will look for a rest client class provided in the {@link RestCucumberOptions}
+ * annotation. </p> Additional hints can be given to Cucumber by annotating the class with
+ * {@link CucumberOptions}.
+ * @see RestCucumberOptions
  * @see CucumberOptions
  */
 public class RestCucumber extends ParentRunner<RestFeatureRunner> {
@@ -38,33 +39,26 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
     * @param clazz the class with the @RunWith annotation.
     * @throws java.io.IOException if there is a problem
     * @throws org.junit.runners.model.InitializationError if there is another problem
+    * @throws CucumberInitException if the rest client fails to load
     */
    public RestCucumber(Class<?> clazz) throws InitializationError, IOException {
       super(clazz);
-
       ClassLoader classLoader = clazz.getClassLoader();
       Assertions.assertNoCucumberAnnotatedMethods(clazz);
-
       RestRuntimeOptionsFactory runtimeOptionsFactory =
          new RestRuntimeOptionsFactory(clazz);
       RestRuntimeOptions runtimeOptions = runtimeOptionsFactory.create();
-
       RestMultiLoader resourceLoader = new RestMultiLoader(classLoader);
-
       createRestClient(clazz);
       if (restClient != null) {
          resourceLoader.setRestClient(restClient);
       }
-
       runtime =
          createRuntime(resourceLoader, classLoader, runtimeOptions.getRuntimeOptions());
-
       cucumberFeatures = runtimeOptions.cucumberFeatures(resourceLoader);
-
       jUnitReporter =
          new RestJUnitReporter(runtimeOptions.reporter(classLoader),
             runtimeOptions.formatter(classLoader), runtimeOptions.isStrict(), runtime);
-
       addChildren(cucumberFeatures);
    }
 
@@ -110,7 +104,7 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
    }
 
    /**
-    * Create the Runtime. Can be overridden to customize the runtime or backend.
+    * Create the RestRuntime. Can be overridden to customize the runtime or backend.
     * @param resourceLoader used to load resources
     * @param classLoader used to load classes
     * @param runtimeOptions configuration
@@ -150,7 +144,6 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
       } else {
          jUnitReporter.close();
       }
-
       if (uploadResultEnabled) {
          uploadResultsToRestClient();
       }
