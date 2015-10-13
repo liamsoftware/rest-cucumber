@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.ParentRunner;
@@ -77,6 +75,7 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
          RestCucumberOptions restCucumberOptions = (RestCucumberOptions) annotation;
          Class<?> restClientClass = restCucumberOptions.restClient();
          uploadResultEnabled = restCucumberOptions.uploadTestResults();
+         ensureRestClientImplementsCucumberRestClient(restClientClass);
          loadRestClientClass(restClientClass);
          if (restClient == null) {
             throw new CucumberInitException(
@@ -103,6 +102,19 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
          throw new CucumberInitException(e);
       } catch (InvocationTargetException e) {
          throw new CucumberInitException(e);
+      }
+   }
+
+   public void ensureRestClientImplementsCucumberRestClient(Class<?> restClientClass) {
+      String cucumberRestClientInterfaceName = "CucumberRestClient";
+      Class<?>[] interfacesImplementedByClass = restClientClass.getInterfaces();
+      Set<String> interfaceNames = new HashSet<String>();
+      for (int i = 0; i < interfacesImplementedByClass.length; i++) {
+         interfaceNames.add(interfacesImplementedByClass[i].getSimpleName());
+      }
+      if (!interfaceNames.contains(cucumberRestClientInterfaceName)) {
+         throw new CucumberInitException(
+            "Rest Client provided does not implement CucumberRestClient interface.");
       }
    }
 
