@@ -3,7 +3,6 @@ package rest;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
@@ -90,17 +89,9 @@ public class RestCucumber extends ParentRunner<RestFeatureRunner> {
          Constructor<?> ctor = restClientClass.getConstructor();
          Object object = ctor.newInstance(new Object[] {});
          restClient = (CucumberRestClient) object;
-      } catch (NoSuchMethodException e) {
+      } catch (CucumberInitException e) {
          throw new CucumberInitException(e);
-      } catch (SecurityException e) {
-         throw new CucumberInitException(e);
-      } catch (InstantiationException e) {
-         throw new CucumberInitException(e);
-      } catch (IllegalAccessException e) {
-         throw new CucumberInitException(e);
-      } catch (IllegalArgumentException e) {
-         throw new CucumberInitException(e);
-      } catch (InvocationTargetException e) {
+      } catch (ReflectiveOperationException e) {
          throw new CucumberInitException(e);
       }
    }
