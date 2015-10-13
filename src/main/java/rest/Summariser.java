@@ -74,14 +74,7 @@ public class Summariser {
    }
 
    private String getTestIdsFromCucumberFeature(CucumberFeature cucumberFeature) {
-      String testId = cucumberFeature.getPath();
-      if (!testId.contains(",")) {
-         throw new IllegalArgumentException(
-            "Test ID hass not been assigned to the cucumber feature correctly.");
-      }
-      testId = testId.split(",")[0];
-      testId = testId.replace("[", "");
-      return testId;
+      return cucumberFeature.getPath();
    }
 
    private int checkIfContainerAlreadyExistsForTestId(String testId) {

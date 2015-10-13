@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import org.apache.commons.lang3.Validate;
 import cucumber.runtime.io.Resource;
 
@@ -12,19 +11,16 @@ public class RestResource implements Resource {
    private CucumberRestClient client;
    public final String testId;
    public final String path;
-   private long creationTime;
 
    public RestResource(String testId, String baseUrl) {
       this.testId = Validate.notEmpty(testId);
       path = Validate.notEmpty(baseUrl);
-      creationTime = System.currentTimeMillis();
    }
 
    public RestResource(String testId, String baseUrl, CucumberRestClient restClient) {
       this.testId = Validate.notEmpty(testId);
       path = Validate.notEmpty(baseUrl);
       client = Validate.notNull(restClient);
-      creationTime = System.currentTimeMillis();
    }
 
    public String getAbsolutePath() {
@@ -45,21 +41,6 @@ public class RestResource implements Resource {
    }
 
    public String getPath() {
-      return Arrays.toString(getMetaDataArray());
-   }
-
-   private String[] getMetaDataArray() {
-      String[] data = new String[2];
-      data[0] = testId;
-      data[1] = getTimeFormatted();
-      return data;
-   }
-
-   private String getTimeFormatted() {
-      long ss, mm, hh;
-      ss = ((creationTime) / 1000) % 60;
-      mm = ((creationTime) / (1000 * 60) % 60);
-      hh = ((creationTime) / (1000 * 60 * 60) % 24);
-      return String.format("%02d:%02d:%02d", hh, mm, ss);
+      return path;
    }
 }
