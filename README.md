@@ -12,7 +12,7 @@ Create a class to launch your Cucumber tests.
 * Include the @RestCucumberOptions annotation which defines 
 	* The Rest Client class that RestCucumber will load
 	* A flag to indicate if test results should be posted back to the Rest Client
-* See the [sample package](https://github.com/LiamHayes1/rest-cucumber/tree/master/src/main/java/example) including [RunCukeTest](https://github.com/LiamHayes1/rest-cucumber/blob/master/src/main/java/example/RunCukeTest.java)
+* See the [example package](https://github.com/LiamHayes1/rest-cucumber/tree/master/src/main/java/example) including the [RunCukeTest](https://github.com/LiamHayes1/rest-cucumber/blob/master/src/main/java/example/RunCukeTest.java) class
 
 ```java
 import jira.RestCucumber;
