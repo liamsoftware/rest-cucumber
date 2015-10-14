@@ -67,4 +67,10 @@ public class CucumberFeatureResultContainerTest {
       assertEquals("There should be no scenario results", container.featureTestResult(),
          "No scenario results have been logged for issue TEST-123");
    }
+
+   @Test
+   public void
+      givenValidFeatureResultContainer_whenGetStepResultsCalled_thenStepResultsReturned() {
+
+   }
 }
