@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.liamhayes1</groupId>
   <artifactId>rest-cucumber</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <name>Rest Cucumber</name>
   <url>https://github.com/LiamHayes1/rest-cucumber</url>
   <description>Rest Cucumber allows you to attach a rest client for retrieval of Cucumber feature files and posting of Cucumber test results</description>
@@ -17,7 +17,7 @@
      <connection>scm:git:git://github.com/LiamHayes1/rest-cucumber.git</connection>
      <developerConnection>scm:git:https://github.com/LiamHayes1/rest-cucumber.git</developerConnection>
      <url>https://github.com/LiamHayes1/rest-cucumber.git</url>
-    <tag>HEAD</tag>
+    <tag>rest-cucumber-1.2</tag>
   </scm>
   <developers>
      <developer>
