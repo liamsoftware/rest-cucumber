@@ -60,7 +60,7 @@
     <build>
     	<!-- Uncomment the plugins in order to perform a release to OSS Sonatype -->
     	<!-- Note: username, password, and PGP signing will be required -->
-        <!-- <plugins>
+        <plugins>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -123,6 +123,6 @@
             	</execution>
         	</executions>
        		</plugin> 
-    	</plugins> -->
+    	</plugins>
     </build>
 </project>
