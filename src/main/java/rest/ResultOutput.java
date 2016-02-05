@@ -17,4 +17,24 @@ public class ResultOutput {
       this.comment = comment;
       this.scenarioResults = Collections.unmodifiableMap(scenarioResults);
    }
+   
+   public String getTestId() {
+	   return testId;
+   }
+   
+   public String getResult() {
+	   return result;
+   }
+   
+   public String getComment() {
+	   return comment;
+   }
+   
+   public Map<String, String> getScenarioResults() {
+	   return scenarioResults;
+   }
+   
+   public String getTestName() {
+	   return testName;
+   }
 }

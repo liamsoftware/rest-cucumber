@@ -45,6 +45,14 @@ public class RestFeatureRunner extends ParentRunner<ParentRunner<?>> {
    protected void runChild(ParentRunner<?> child, RunNotifier notifier) {
       child.run(notifier);
    }
+   
+   @Override
+   public void run(RunNotifier notifier) {
+	   jUnitReporter.uri(cucumberFeature.getPath());
+	   jUnitReporter.feature(cucumberFeature.getGherkinFeature());
+	   super.run(notifier);
+	   jUnitReporter.eof();
+   }
 
    private void buildFeatureElementRunners() {
       for (CucumberTagStatement cucumberTagStatement : cucumberFeature
